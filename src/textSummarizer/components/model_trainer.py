@@ -37,13 +37,12 @@ class ModelTrainer:
         # Load dataset
         dataset_samsum_pt = load_from_disk(self.config.data_path)
 
+
         trainer_args = TrainingArguments(
             output_dir=self.config.root_dir,
 
             num_train_epochs=1,
-
             warmup_steps=500,
-
             per_device_train_batch_size=1,
             per_device_eval_batch_size=1,
 
@@ -57,8 +56,9 @@ class ModelTrainer:
             eval_steps=500,
 
             save_steps=1000000,
-            bf16=True,
-            fp16=False,
+            # deepspeed=ds_config_dict,
+            bf16= True,
+            fp16= False,
 
             dataloader_pin_memory=False,
 
@@ -72,7 +72,7 @@ class ModelTrainer:
             args=trainer_args,
             tokenizer=tokenizer,
             data_collator=seq2seq_data_collator,
-            train_dataset=dataset_samsum_pt["test"],
+            train_dataset=dataset_samsum_pt["train"],
             eval_dataset=dataset_samsum_pt["validation"]
         )
 
