@@ -19,4 +19,6 @@ ensure
 fastapi
 uvicorn
 Jinja2
+evaluate
+mlflow
 -e .
